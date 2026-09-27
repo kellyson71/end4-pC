@@ -62,7 +62,6 @@ RippleButton {
             }
         }
 
-        // How heavy: three bars growing like a signal meter, filled up to the level, and its name
         RowLayout {
             Layout.alignment: Qt.AlignVCenter
             spacing: 6

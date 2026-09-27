@@ -1,4 +1,3 @@
-
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
@@ -191,7 +190,6 @@ BarWidgetSwitcher {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: !Config.options.bar.tooltips.clickToShow
-        // Middle click opens the calendar side, instead of only previewing it on hover
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onClicked: mouse => {
             if (mouse.button === Qt.MiddleButton) GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen
