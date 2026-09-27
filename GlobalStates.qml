@@ -48,6 +48,8 @@ Singleton {
     property string osdIndicatorType: "volume"
     property bool barCenterOnly: false
     property bool diSessionOpen: false
+    // Screen name -> whether that screen's island is buried under a fullscreen window (DynamicIsland.qml)
+    property var islandBuriedByScreen: ({})
 
     readonly property bool dynamicIslandEnabled: Config.options.bar.layouts.leftLayout.includes("dynamicIsland")
         || Config.options.bar.layouts.middleLayout.includes("dynamicIsland")
