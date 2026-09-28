@@ -1520,5 +1520,14 @@
   "Recently recognized": "Reconhecidas recentemente",
   "Nothing recognized yet": "Nada reconhecido ainda",
   "Matches show up here": "Os resultados aparecem aqui",
-  "Quali": "Quali"
+  "Quali": "Quali",
+  "%1 leads": "%1 lidera",
+  "%1 leads by %2 pts": "%1 lidera por %2 pts",
+  "Back to the next race": "Voltar para a próxima corrida",
+  "Classification": "Classificação",
+  "Loading results…": "Carregando resultado…",
+  "Loading…": "Carregando…",
+  "Round %1": "Rodada %1",
+  "Winner": "Vencedor",
+  "pts": "pts"
 }
