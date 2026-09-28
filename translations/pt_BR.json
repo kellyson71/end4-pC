@@ -1317,5 +1317,16 @@
   "Coding agents in the terminal": "Agentes de código no terminal",
   "Reuses what PipeWire already reports": "Reaproveita o que o PipeWire já informa",
   "High": "Alto",
-  "Low": "Baixo"
+  "Low": "Baixo",
+  "Next hours": "Próximas horas",
+  "Low %1 · High %2": "Mín %1 · Máx %2",
+  "Sunrise in %1": "Nasce em %1",
+  "Sunset in %1": "Pôr do sol em %1",
+  "Loading forecast…": "Carregando previsão…",
+  "UV · peak %1": "UV · máx %1",
+  "UV index": "Índice UV",
+  "Moderate": "Moderado",
+  "Very high": "Muito alto",
+  "Extreme": "Extremo",
+  "N NE E SE S SW W NW": "N NE L SE S SO O NO"
 }
