@@ -116,9 +116,14 @@ Singleton {
         lyricsProc.running = true
     }
 
-    Connections {
-        target: root.activePlayer
-        function onTrackTitleChanged() { root.restartLyrics() }
+    // Keyed on title + artist (and so on the player too): the title alone missed a player switch (Chromium ↔
+    // Spotify) and the moment after a reload when the player shows up with the same song still playing, which
+    // left the lyrics "not found" until the next track. Debounced, since title and artist often arrive apart.
+    onTrackKeyChanged: lyricsDebounce.restart()
+    Timer {
+        id: lyricsDebounce
+        interval: 250
+        onTriggered: if (root.fetchedFor !== root.trackKey) root.restartLyrics()
     }
 
     Component.onCompleted: root.restartLyrics()
