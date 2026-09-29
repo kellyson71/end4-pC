@@ -45,19 +45,26 @@ Singleton {
         interval: 150
         repeat: true
         running: root.status === "ok" && root.lyricsLines.length > 0 && root.wanted && root.playing
-        onTriggered: {
-            const pos = root.activePlayer?.position ?? 0
-            let idx = -1
-            for (let i = 0; i < root.lyricsLines.length; i++) {
-                if (root.lyricsLines[i].time <= pos) idx = i
-                else break
-            }
-            if (idx !== root.activeIndex) {
-                root.activeIndex = idx
-                root.slots = root.buildSlots(idx)
-            }
+        onTriggered: root.syncNow()
+    }
+
+    // Puts the highlight on the line at the player's position. Runs on the timer while playing, and once when
+    // the lyrics arrive, when playback pauses or resumes, and when a view asks — so a paused song keeps showing
+    // where it stopped (after a reload it used to show every line dimmed, as if there were no lyrics).
+    function syncNow() {
+        if (root.status !== "ok" || root.lyricsLines.length === 0) return
+        const pos = root.activePlayer?.position ?? 0
+        let idx = -1
+        for (let i = 0; i < root.lyricsLines.length; i++) {
+            if (root.lyricsLines[i].time <= pos) idx = i
+            else break
+        }
+        if (idx !== root.activeIndex) {
+            root.activeIndex = idx
+            root.slots = root.buildSlots(idx)
         }
     }
+    onPlayingChanged: root.syncNow()
 
     Process {
         id: lyricsProc
@@ -85,6 +92,7 @@ Singleton {
                 root.activeIndex = -1
                 root.slots = root.buildSlots(-1)
                 root.status = "ok"
+                Qt.callLater(root.syncNow)
             }
         }
     }
