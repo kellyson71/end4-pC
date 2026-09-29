@@ -207,6 +207,13 @@ PanelWindow {
             root.recordingShouldStop = (exitCode === 0);
         }
     }
+    // If the recorder never reports that it started (it died, or the region was rejected), don't leave the
+    // outline stuck on screen with no way out
+    Timer {
+        id: recordStartGuard
+        interval: 3000
+        onTriggered: if (!Persistent.states.record.enable) root.dismiss()
+    }
     property bool preparationDone: false
     onPreparationDoneChanged: {
         if (!preparationDone) return;
@@ -269,9 +276,12 @@ PanelWindow {
     // Execution after selection
     function snip() {
         // Validity check
+        // A click that hit nothing selects the whole screen it was on
         if (root.regionWidth <= 0 || root.regionHeight <= 0) {
-            console.warn("[Region Selector] Invalid region size, skipping snip.");
-            root.dismiss();
+            root.regionX = 0;
+            root.regionY = 0;
+            root.regionWidth = root.screen.width;
+            root.regionHeight = root.screen.height;
         }
 
         // Clamp region to screen bounds
@@ -295,12 +305,14 @@ PanelWindow {
             root.regionHeight * root.monitorScale, //
             root.screenshotPath, //
             screenshotAction, //
-            screenshotDir
+            screenshotDir, //
+            `${Math.round(root.monitorOffsetX + root.regionX)},${Math.round(root.monitorOffsetY + root.regionY)} ${Math.floor(root.regionWidth / 2) * 2}x${Math.floor(root.regionHeight / 2) * 2}`
         )
         Quickshell.execDetached(command);
         if (root.action == RegionSelection.SnipAction.Record || root.action == RegionSelection.SnipAction.RecordWithSound) {
             root.phase = RegionSelection.Phase.Post
             root.selectionMode = RegionSelection.SelectionMode.RectCorners
+            recordStartGuard.restart()
         } else {
             root.dismiss();
         }
