@@ -1533,5 +1533,10 @@
   "Lyrics are off": "Letras desligadas",
   "Next": "Próxima",
   "%1 · 5h limit reset": "%1 · limite de 5h renovado",
-  "Your session is free again": "Sua sessão está livre de novo"
+  "Your session is free again": "Sua sessão está livre de novo",
+  "Run in terminal": "Rodar no terminal",
+  "Open in VS Code": "Abrir no VS Code",
+  "IMDb rating": "Nota no IMDb",
+  "Opened in the terminal": "Aberto no terminal",
+  "Opening in VS Code…": "Abrindo no VS Code…"
 }
