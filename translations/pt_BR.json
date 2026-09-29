@@ -1531,5 +1531,7 @@
   "Winner": "Vencedor",
   "pts": "pts",
   "Lyrics are off": "Letras desligadas",
-  "Next": "Próxima"
+  "Next": "Próxima",
+  "%1 · 5h limit reset": "%1 · limite de 5h renovado",
+  "Your session is free again": "Sua sessão está livre de novo"
 }
