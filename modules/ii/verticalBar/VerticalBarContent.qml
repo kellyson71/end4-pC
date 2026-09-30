@@ -38,7 +38,7 @@ Item {
 
     function shouldPaintMaterialPill(name) {
         if (Config.options.bar.cornerStyle !== 3) return false;
-        const blacklist = ["workspaces", "divisor", "powerButton", "media", "docktoPanel", "leftSidebarButton", "dynamicIsland"];
+        const blacklist = ["workspaces", "divisor", "powerButton", "media", "docktoPanel", "leftSidebarButton", "dynamicIsland", "avatar"];
         if (blacklist.includes(name)) {
             return false;
         }
@@ -84,7 +84,7 @@ Item {
                 ? Appearance.getColorFromName(Config.options.bar.frameColor)
                 : Appearance.colors.colLayer0)
             : "transparent"
-        radius: Config.options.bar.cornerStyle === 1 ? Appearance.rounding.windowRounding : 0
+        radius: Config.options.bar.cornerStyle === 1 ? Appearance.rounding.windowRounding + 6 : 0
         border.width: (!root.centerOnly && Config.options.bar.cornerStyle === 1) ? 1 : 0
         border.color: Config.options.bar.showBackground ? Appearance.colors.colLayer0Border : "transparent"
     }
@@ -148,6 +148,7 @@ Item {
                             Layout.fillWidth: true
                             vertical: true
                             currentIndex: index
+                            widgetName: modelData
                             totalCount: root.effectiveLeftLayout.length
                             paintMaterialPill: root.shouldPaintMaterialPill(modelData)
                             bgColor: root.getMaterialPillColor(modelData)
@@ -180,6 +181,7 @@ Item {
                         Layout.fillWidth: true
                         vertical: true
                         currentIndex: index
+                        widgetName: modelData
                         totalCount: root.effectiveLeftLayout.length
                         Loader {
                             Layout.fillWidth: true
@@ -227,6 +229,7 @@ Item {
                             Layout.fillWidth: true
                             vertical: true
                             currentIndex: index
+                            widgetName: modelData
                             paintBackground: modelData !== "dynamicIsland"
                             totalCount: root.effectiveMiddleLayout.length
                             paintMaterialPill: root.shouldPaintMaterialPill(modelData)
@@ -260,6 +263,7 @@ Item {
                         Layout.fillWidth: true
                         vertical: true
                         currentIndex: index
+                        widgetName: modelData
                         paintBackground: modelData !== "dynamicIsland"
                         totalCount: root.effectiveMiddleLayout.length
                         Loader {
@@ -309,6 +313,7 @@ Item {
                             Layout.fillWidth: true
                             vertical: true
                             currentIndex: index
+                            widgetName: modelData
                             totalCount: root.effectiveRightLayout.length
                             paintMaterialPill: root.shouldPaintMaterialPill(modelData)
                             bgColor: root.getMaterialPillColor(modelData)
@@ -341,6 +346,7 @@ Item {
                         Layout.fillWidth: true
                         vertical: true
                         currentIndex: index
+                        widgetName: modelData
                         totalCount: root.effectiveRightLayout.length
                         Loader {
                             Layout.fillWidth: true

@@ -6,6 +6,8 @@ import QtQuick.Layouts
 
 Item {
     id: root
+    property color contentColor: Appearance.colors.colOnSecondaryContainer
+    property bool contentColorOverridden: false
     required property string iconName
     required property double percentage
     property bool vertical: false
@@ -18,7 +20,7 @@ Item {
     property bool warning: percentage * 100 >= warningThreshold
     readonly property bool nearing: !root.warning && root.warningThreshold < 100 && root.percentage * 100 >= root.warningThreshold - 15
     readonly property color toneColor: root.warning ? Appearance.colors.colError
-        : root.nearing ? Appearance.colors.colTertiary : Appearance.colors.colOnSecondaryContainer
+        : root.nearing ? Appearance.colors.colTertiary : root.contentColor
 
     Component {
         id: outlineStyle
@@ -38,7 +40,7 @@ Item {
                     fill: 1
                     text: root.iconName
                     iconSize: Appearance.font.pixelSize.normal
-                    color: Appearance.colors.colOnSecondaryContainer
+                    color: root.contentColor
                 }
             }
         }
@@ -63,7 +65,7 @@ Item {
                     fill: 1
                     text: root.iconName
                     iconSize: Appearance.font.pixelSize.normal
-                    color: Appearance.m3colors.m3onSecondaryContainer
+                    color: root.contentColor
                 }
             }
         }
@@ -106,7 +108,8 @@ Item {
             StyledText {
                 id: percentageText
                 anchors.centerIn: parent
-                color: root.warning ? Appearance.colors.colError : root.nearing ? Appearance.colors.colTertiary : Appearance.colors.colOnLayer1
+                color: root.warning ? Appearance.colors.colError : root.nearing ? Appearance.colors.colTertiary
+                    : root.contentColorOverridden ? root.contentColor : Appearance.colors.colOnLayer1
                 font.pixelSize: Appearance.font.pixelSize.small
                 text: `${Math.round(root.percentage * 100).toString()}`
                 Behavior on color { ColorAnimation { duration: 400 } }

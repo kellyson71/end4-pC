@@ -10,6 +10,9 @@ import Quickshell.Io
 
 MouseArea {
     id: root
+    property color contentColor: Appearance.colors.colOnLayer1
+    property bool contentColorOverridden: false
+    signal styleEditorRequested()
     property bool vertical: Config.options.bar.vertical
     property bool isMaterial: Config.options.bar.cornerStyle === 3
     property bool borderless: Config.options.bar.borderless
@@ -23,22 +26,21 @@ MouseArea {
     onClicked: (mouse) => {
         if (mouse.button === Qt.LeftButton) {
             updateProc.running = true
-        } else if (mouse.button === Qt.MiddleButton) {
-            Quickshell.execDetached(["kitty", "--class", "ilha-updates-list", "--title", "Atualizações pendentes",
-                "fish", "-c", "yay -Qu; echo; read -P 'Enter para fechar '"])
-        }
-    }
-
-    onPressed: (mouse) => {
-        if (mouse.button === Qt.RightButton) {
+        } else if (mouse.button === Qt.RightButton) {
             Updates.refresh()
             Quickshell.execDetached(["notify-send",
                 Translation.tr("Updates"),
                 Translation.tr("Checking for updates..."),
                 "-a", "Shell"
             ])
-            mouse.accepted = false
+        } else if (mouse.button === Qt.MiddleButton) {
+            Quickshell.execDetached(["kitty", "--class", "ilha-updates-list", "--title", "Atualizações pendentes",
+                "fish", "-c", "yay -Qu; echo; read -P 'Enter para fechar '"])
         }
+    }
+
+    onPressAndHold: (mouse) => {
+        if (mouse.button === Qt.RightButton) root.styleEditorRequested()
     }
 
     Process {
@@ -81,7 +83,7 @@ MouseArea {
             leftPadding: 5
             rightPadding: 3
             font.pixelSize: Appearance.font.pixelSize.small
-            color: root.isMaterial ? Appearance.colors.colPrimary : Appearance.colors.colOnLayer1
+            color: root.isMaterial ? Appearance.colors.colPrimary : root.contentColor
             text: Updates.count
         }
     }
@@ -93,7 +95,7 @@ MouseArea {
             rightPadding: 3
             text: "progress_activity"
             iconSize: Appearance.font.pixelSize.normal
-            color: root.isMaterial ? Appearance.colors.colPrimary : Appearance.colors.colOnLayer1
+            color: root.isMaterial ? Appearance.colors.colPrimary : root.contentColor
             RotationAnimation on rotation {
                 from: 0; to: 360
                 duration: 1000
@@ -122,7 +124,7 @@ MouseArea {
                 iconSize: Appearance.font.pixelSize.normal
                 color: Updates.updateStronglyAdvised ? Appearance.m3colors.m3error
                     : Updates.updateAdvised ? Appearance.colors.colTertiary
-                    : Appearance.colors.colOnLayer1
+                    : root.contentColor
             }
 
             // Material
@@ -162,7 +164,7 @@ MouseArea {
                 iconSize: Appearance.font.pixelSize.normal
                 color: Updates.updateStronglyAdvised ? Appearance.m3colors.m3error
                     : Updates.updateAdvised ? Appearance.colors.colTertiary
-                    : Appearance.colors.colOnLayer1
+                    : root.contentColor
             }
 
             Rectangle {
