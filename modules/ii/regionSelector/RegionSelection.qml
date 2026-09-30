@@ -207,8 +207,7 @@ PanelWindow {
             root.recordingShouldStop = (exitCode === 0);
         }
     }
-    // If the recorder never reports that it started (it died, or the region was rejected), don't leave the
-    // outline stuck on screen with no way out
+    // If the recorder never reports that it started, don't leave the outline stuck on screen
     Timer {
         id: recordStartGuard
         interval: 3000
@@ -276,7 +275,6 @@ PanelWindow {
     // Execution after selection
     function snip() {
         // Validity check
-        // A click that hit nothing selects the whole screen it was on
         if (root.regionWidth <= 0 || root.regionHeight <= 0) {
             root.regionX = 0;
             root.regionY = 0;

@@ -16,7 +16,6 @@ Item {
     implicitWidth:  vertical ? Appearance.sizes.verticalBarWidth : (resourceRowLayout.x < 0 ? 0 : resourceRowLayout.implicitWidth)
     implicitHeight: vertical ? resourceProgress.implicitHeight : Appearance.sizes.barHeight
     property bool warning: percentage * 100 >= warningThreshold
-    // Material 3 tones: the ring turns tertiary as it closes in on the limit (15 points before it), error past it
     readonly property bool nearing: !root.warning && root.warningThreshold < 100 && root.percentage * 100 >= root.warningThreshold - 15
     readonly property color toneColor: root.warning ? Appearance.colors.colError
         : root.nearing ? Appearance.colors.colTertiary : Appearance.colors.colOnSecondaryContainer

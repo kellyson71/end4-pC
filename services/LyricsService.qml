@@ -13,7 +13,6 @@ Singleton {
 
     readonly property MprisPlayer activePlayer: MprisController.activePlayer
     property int viewers: 0
-    // Fetched only if lyrics are on and shown somewhere (the pill or the expanded player)
     readonly property bool wanted: root.viewers > 0 || ((Config.options?.bar?.dynamicIsland?.lyrics ?? true)
         && ((Config.options?.bar?.dynamicIsland?.lyricsPill ?? true) || (Config.options?.bar?.dynamicIsland?.lyricsCard ?? true)))
     readonly property bool playing: root.activePlayer?.isPlaying ?? false
@@ -50,9 +49,8 @@ Singleton {
         onTriggered: root.syncNow()
     }
 
-    // Puts the highlight on the line at the player's position. Runs on the timer while playing, and once when
-    // the lyrics arrive, when playback pauses or resumes, and when a view asks — so a paused song keeps showing
-    // where it stopped (after a reload it used to show every line dimmed, as if there were no lyrics).
+    // Highlights the line at the player position. Also runs on lyrics arrival, pause/resume and view requests,
+    // so a paused song keeps its line.
     function syncNow() {
         if (root.status !== "ok" || root.lyricsLines.length === 0) return
         const pos = root.activePlayer?.position ?? 0
@@ -126,9 +124,8 @@ Singleton {
         lyricsProc.running = true
     }
 
-    // Keyed on title + artist (and so on the player too): the title alone missed a player switch (Chromium ↔
-    // Spotify) and the moment after a reload when the player shows up with the same song still playing, which
-    // left the lyrics "not found" until the next track. Debounced, since title and artist often arrive apart.
+    // Keyed on title + artist (and so on the player): title alone missed player switches and reloads. Debounced
+    // because title and artist often arrive apart.
     onTrackKeyChanged: lyricsDebounce.restart()
     Timer {
         id: lyricsDebounce
