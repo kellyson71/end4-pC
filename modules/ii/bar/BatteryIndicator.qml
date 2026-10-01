@@ -10,7 +10,7 @@ MouseArea {
     property bool contentColorOverridden: false
     property bool vertical: false
     property bool borderless: Config.options.bar.borderless
-    property bool isMaterial: Config.options.bar.cornerStyle === 3
+    property bool isMaterial: Config.options.bar.cornerStyle === 3 || Config.options.bar.cornerStyle === 4
     readonly property var chargeState: Battery.chargeState
     readonly property bool isCharging: Battery.isCharging
     readonly property bool isPluggedIn: Battery.isPluggedIn

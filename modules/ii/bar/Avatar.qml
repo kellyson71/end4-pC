@@ -5,7 +5,7 @@ import QtQuick
 Item {
     id: root
     property bool vertical: false
-    readonly property bool isMaterial: Config.options.bar.cornerStyle === 3
+    readonly property bool isMaterial: Config.options.bar.cornerStyle === 3 || Config.options.bar.cornerStyle === 4
 
     implicitWidth: vertical ? Appearance.sizes.verticalBarWidth : avatar.width + (root.isMaterial ? 0 : 8)
     implicitHeight: vertical ? avatar.height + 8 : Appearance.sizes.barHeight

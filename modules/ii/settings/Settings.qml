@@ -165,8 +165,7 @@ Scope {
         function open(): void   { GlobalStates.settingsOpen = true; }
         function close(): void  { GlobalStates.settingsOpen = false; }
         function page(name: string): void {
-            GlobalStates.settingsPage = name;
-            GlobalStates.settingsOpen = true;
+            GlobalStates.openSettingsAt(name.toLowerCase());
         }
     }
 

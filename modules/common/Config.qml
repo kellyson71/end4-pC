@@ -481,7 +481,7 @@ Singleton {
                 property bool followFrameColor: false
                 property bool centerOnlyReserveFrame: false
                 property bool bottom: false // Instead of top
-                property int cornerStyle: 0 // 0: Hug | 1: Float | 2: Plain rectangle
+                property int cornerStyle: 0 // 0: Hug | 1: Float | 2: Plain rectangle | 3: M3 | 4: M3 Hug | 5: Panel
                 property string groupColor: "layer1"
                 property bool floatStyleShadow: true // Show shadow behind bar when cornerStyle == 1 (Float)
                 property string borderless: "pills"
@@ -934,6 +934,8 @@ Singleton {
             property JsonObject custom: JsonObject {
                 property string distroIcon: "google-gemini-symbolic"
                 property bool colorizeIcon: true
+                property string iconColor: "onLayer0"
+                property string iconsPath: ""
             }
 
             property JsonObject screenRecord: JsonObject {
