@@ -1358,6 +1358,8 @@
   "Confirm": "Confirmar",
   "Drawer is empty": "A gaveta está vazia",
   "they stay for %1 days": "ficam guardados por %1 dias",
+  "unpinned files leave after %1 h without use": "sem pin, saem depois de %1 h sem uso",
+  "Drawer drops unpinned files after (hours unused)": "Gaveta descarta arquivos sem pin depois de (horas sem uso)",
   "S%1 · E%2": "T%1 · E%2",
   "#%1 of the series": "#%1 da série",
   "Season %1": "Temporada %1",
